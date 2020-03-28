@@ -39,5 +39,4 @@ jspm_packages
 *.tgz
 
 # ignore the output directory
-dist/
 coverage/
