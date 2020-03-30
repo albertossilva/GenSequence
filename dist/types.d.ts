@@ -3,12 +3,19 @@ export declare type ThenArg<T> = T extends Promise<infer U> ? U : T;
 export interface IterableLike<T> {
     [Symbol.iterator](): Iterator<T> | IterableIterator<T>;
 }
+export interface AsyncIterableLike<T> {
+    [Symbol.asyncIterator](): AsyncIterableIterator<T>;
+}
 export interface GenIterable<T> extends IterableLike<T> {
 }
+export interface AsyncGenIterable<T> extends AsyncIterableLike<T> {
+}
 export declare type LazyIterable<T> = (() => IterableLike<T>) | IterableLike<T>;
+export declare type AsyncLazyIterable<T> = (() => AsyncIterableLike<T>) | AsyncIterableLike<T>;
 export declare type ChainFunction<T, U = T> = (i: IterableLike<T>) => IterableLike<U>;
 export declare type ReduceFunction<T, U = T> = (i: IterableLike<T>) => U;
 export declare type ReduceAsyncFunction<T, U = T> = (i: IterableLike<ThenArg<T>>) => U;
+export declare type ReduceAsyncFunctionForAsyncIterator<T, U = T> = (i: AsyncIterableLike<ThenArg<T>>) => U;
 export interface Sequence<T> extends IterableLike<T> {
     next(): IteratorResult<T>;
     /** keep values where the fnFilter(t) returns true */
@@ -52,6 +59,12 @@ export interface Sequence<T> extends IterableLike<T> {
     pipe(...fns: ChainFunction<T, T>[]): Sequence<T>;
     toArray(): T[];
     toIterable(): IterableIterator<T>;
+}
+export interface AsyncSequence<T> extends AsyncIterableLike<T> {
+    reduceAsync(fnReduceAsync: (previousValue: ThenArg<T>, currentValue: ThenArg<T>, currentIndex: number) => ThenArg<T>): Promise<ThenArg<T>>;
+    reduceAsync(fnReduceAsync: (previousValue: ThenArg<T>, currentValue: ThenArg<T>, currentIndex: number) => Promise<ThenArg<T>>): Promise<ThenArg<T>>;
+    reduceAsync<U>(fnReduceAsync: (previousValue: ThenArg<U>, currentValue: ThenArg<T>, currentIndex: number) => ThenArg<U>, initialValue: U): Promise<ThenArg<U>>;
+    reduceAsync<U>(fnReduceAsync: (previousValue: ThenArg<U>, currentValue: ThenArg<T>, currentIndex: number) => Promise<ThenArg<U>>, initialValue: U): Promise<ThenArg<U>>;
 }
 export interface SequenceBuilder<S, T = S> {
     build(i: LazyIterable<S>): Sequence<T>;

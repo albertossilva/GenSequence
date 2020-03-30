@@ -208,6 +208,36 @@ function reduceAsync(fnReduceAsync, i, initialValue) {
     });
 }
 exports.reduceAsync = reduceAsync;
+function reduceAsyncForAsyncIterator(fnReduceAsync, i, initialValue) {
+    var i_2, i_2_1;
+    var e_2, _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        let index = 0;
+        if (initialValue === undefined) {
+            index = 1;
+            const r = yield i[Symbol.asyncIterator]().next();
+            initialValue = r.value;
+        }
+        let previosValue = yield initialValue;
+        try {
+            for (i_2 = __asyncValues(i); i_2_1 = yield i_2.next(), !i_2_1.done;) {
+                const t = i_2_1.value;
+                const nextValue = yield fnReduceAsync(previosValue, t, index);
+                previosValue = nextValue;
+                index += 1;
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (i_2_1 && !i_2_1.done && (_a = i_2.return)) yield _a.call(i_2);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return previosValue;
+    });
+}
+exports.reduceAsyncForAsyncIterator = reduceAsyncForAsyncIterator;
 //// Utilities
 /**
  * Convert an Iterator into an IterableIterator

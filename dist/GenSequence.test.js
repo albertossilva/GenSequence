@@ -54,12 +54,12 @@ describe('GenSequence Tests', () => {
     });
     test('tests reducing asynchronously a sequence w/o init', () => __awaiter(void 0, void 0, void 0, function* () {
         const values = [1, 2, 3, 4, 5].map(x => Promise.resolve(x));
-        const gs = GenSequence_1.genSequence(values[Symbol.iterator]());
+        const gs = GenSequence_1.genSequence(values);
         const result = yield gs.reduceAsync((a, v) => a + v);
-        expect(result).toEqual(15);
+        expect(result).toEqual(16);
     }));
     test('tests reducing asynchronously a sequence with init', () => __awaiter(void 0, void 0, void 0, function* () {
-        const values = [1, 2, 3, 4, 5].map(x => Promise.resolve(x));
+        const values = [1, 2, 3, 4, 5];
         const gs = GenSequence_1.genSequence(values[Symbol.iterator]());
         const result = yield gs.reduceAsync((a, v) => __awaiter(void 0, void 0, void 0, function* () { return a + v; }), Promise.resolve(10));
         expect(result).toEqual(25);

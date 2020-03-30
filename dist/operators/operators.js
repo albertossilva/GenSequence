@@ -85,6 +85,10 @@ function reduceAsync(fnReduceAsync, initialValue) {
     return (i) => op.reduceAsync(fnReduceAsync, i, initialValue);
 }
 exports.reduceAsync = reduceAsync;
+function reduceAsyncForAsyncIterator(fnReduceAsync, initialValue) {
+    return (i) => op.reduceAsyncForAsyncIterator(fnReduceAsync, i, initialValue);
+}
+exports.reduceAsyncForAsyncIterator = reduceAsyncForAsyncIterator;
 function pipe(...fns) {
     return (i) => {
         for (const fn of fns) {

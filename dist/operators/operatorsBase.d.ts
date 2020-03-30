@@ -1,4 +1,4 @@
-import { Maybe, IterableLike, ThenArg } from '../types';
+import { Maybe, IterableLike, ThenArg, AsyncIterableLike } from '../types';
 /**
  * Operators used by Sequence
  */
@@ -37,6 +37,8 @@ export declare function reduce<T>(fnReduce: (prevValue: T, curValue: T, curIndex
 export declare function reduce<T>(fnReduce: (prevValue: T, curValue: T, curIndex: number) => T, initialValue: Maybe<T>, i: IterableLike<T>): Maybe<T>;
 export declare function reduceAsync<T, U>(fnReduceAsync: (previosValue: ThenArg<U>, currentValue: ThenArg<T>, currentIndex: number) => ThenArg<U> | Promise<ThenArg<U>>, i: IterableLike<ThenArg<T>>, initialValue?: ThenArg<U>): Promise<ThenArg<U>>;
 export declare function reduceAsync<T>(fnReduceAsync: (previosValue: ThenArg<T>, currentValue: ThenArg<T>, currentIndex: number) => ThenArg<T> | Promise<ThenArg<T>>, i: IterableLike<ThenArg<T>>, initialValue?: ThenArg<T>): Promise<ThenArg<T>>;
+export declare function reduceAsyncForAsyncIterator<T, U>(fnReduceAsync: (previosValue: ThenArg<U>, currentValue: ThenArg<T>, currentIndex: number) => ThenArg<U> | Promise<ThenArg<U>>, i: AsyncIterableLike<ThenArg<T>>, initialValue?: ThenArg<U>): Promise<ThenArg<U>>;
+export declare function reduceAsyncForAsyncIterator<T>(fnReduceAsync: (previosValue: ThenArg<T>, currentValue: ThenArg<T>, currentIndex: number) => ThenArg<T> | Promise<ThenArg<T>>, i: AsyncIterableLike<ThenArg<T>>, initialValue?: ThenArg<T>): Promise<ThenArg<T>>;
 /**
  * Convert an Iterator into an IterableIterator
  */
