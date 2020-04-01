@@ -193,7 +193,7 @@ function toMs(diff) {
 function assertExpectedRatio(testName, base, comp, expectedRatio, failRatio) {
     console.log(testName + compareMeasurementsToString(base, comp, expectedRatio));
     const ratio = comp.avg / base.avg;
-    expect(ratio).toBeLessThan(failRatio !== null && failRatio !== void 0 ? failRatio : expectedRatio);
+    expect(ratio).toBeLessThan((failRatio !== null && failRatio !== void 0 ? failRatio : expectedRatio));
 }
 function compareMeasurementsToString(base, comp, expectedRatio) {
     function fix(n) {

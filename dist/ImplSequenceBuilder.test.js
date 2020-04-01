@@ -77,7 +77,7 @@ describe('Verify ImplSequenceBuilder', () => {
         expect([...i]).toEqual(a.map(operatorsBase_1.scanMap(fn, 0)));
     });
     test('Test combine', () => {
-        const fn = (a, b) => a + (b !== null && b !== void 0 ? b : 0);
+        const fn = (a, b) => a + ((b !== null && b !== void 0 ? b : 0));
         const a = [1, 2, 3];
         const b = getBuilder().combine(fn, a);
         const i = b.build(a);
